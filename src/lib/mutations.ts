@@ -1,29 +1,31 @@
 import { gql } from "graphql-request";
 
-export const CREATE_ORDER = gql`
-  mutation CreateOrder(
-    $customerName: String!
-    $phone: String!
-    $address: String!
-    $productIds: [ID!]!
-    $notes: String
-  ) {
-    createOrder(
-      data: {
-        customerName: $customerName
-        phone: $phone
-        address: $address
-        notes: $notes
-        orderedProducts: { connect: [{ where: { id_in: $productIds } }] }
-      }
+export const buildCreateOrderMutation = (productIds: string[]) => {
+  const connect = productIds.map((id) => `{ id: "${id}" }`).join(", ");
+  return gql`
+    mutation CreateOrder(
+      $customerName: String!
+      $phone: String!
+      $address: String!
+      $notes: String
     ) {
-      id
-      customerName
-      phone
-      createdAt
+      createOrder(
+        data: {
+          customerName: $customerName
+          phone: $phone
+          address: $address
+          notes: $notes
+          orderedProducts: { connect: [${connect}] }
+        }
+      ) {
+        id
+        customerName
+        phone
+        createdAt
+      }
     }
-  }
-`;
+  `;
+};
 
 export const PUBLISH_ORDER = gql`
   mutation PublishOrder($id: ID!) {

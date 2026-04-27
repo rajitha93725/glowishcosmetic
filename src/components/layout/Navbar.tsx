@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import { GiFlowerEmblem } from "react-icons/gi";
 import { useCartStore } from "@/store/cartStore";
@@ -16,7 +16,10 @@ const links = [
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const totalItems = useCartStore((s) => s.totalItems());
+
+  useEffect(() => { setMounted(true); }, []);
 
   return (
     <>
@@ -49,7 +52,7 @@ export function Navbar() {
               aria-label="Open cart"
             >
               <FiShoppingCart className="text-xl" />
-              {totalItems > 0 && (
+              {mounted && totalItems > 0 && (
                 <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {totalItems}
                 </span>

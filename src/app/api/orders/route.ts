@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hygraphMutationClient } from "@/lib/hygraph";
-import { CREATE_ORDER, PUBLISH_ORDER } from "@/lib/mutations";
+import { buildCreateOrderMutation, PUBLISH_ORDER } from "@/lib/mutations";
 import type { OrderInput } from "@/types";
 
 export async function POST(req: NextRequest) {
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     // 1. Create draft order in Hygraph
     const { createOrder } = await hygraphMutationClient.request<{
       createOrder: { id: string; customerName: string };
-    }>(CREATE_ORDER, { customerName, phone, address, notes, productIds });
+    }>(buildCreateOrderMutation(productIds), { customerName, phone, address, notes });
 
     // 2. Publish it so it appears in admin panel immediately
     await hygraphMutationClient.request(PUBLISH_ORDER, { id: createOrder.id });
