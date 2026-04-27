@@ -19,14 +19,15 @@ async function getProducts(): Promise<Product[]> {
 
 export default async function HomePage() {
   const products = await getProducts();
-  const featured = products.slice(0, 6);
+  const featured = products.filter((p) => p.featured).slice(0, 6);
+  const fallback = products.slice(0, 6);
 
   return (
     <>
       <HeroSection />
       <MarqueeStrip />
+      <FeaturedProducts products={featured.length > 0 ? featured : fallback} />
       <CategorySection />
-      <FeaturedProducts products={featured} />
       <MarqueeStrip dark />
       <TestimonialsSection />
       <CtaBanner />

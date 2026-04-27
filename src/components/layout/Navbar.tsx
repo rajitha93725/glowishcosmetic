@@ -5,6 +5,7 @@ import { FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import { GiFlowerEmblem } from "react-icons/gi";
 import { useCartStore } from "@/store/cartStore";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { UserMenu } from "@/components/layout/UserMenu";
 
 const links = [
   { href: "/", label: "Home" },
@@ -46,6 +47,8 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
+            <UserMenu />
+
             <button
               onClick={() => setCartOpen(true)}
               className="relative p-2 text-pink-500 hover:bg-pink-50 rounded-full transition-colors"

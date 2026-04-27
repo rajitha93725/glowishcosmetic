@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { Providers } from "@/components/providers/Providers";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
@@ -18,20 +19,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col bg-pink-50">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "#fff0f5",
-              color: "#b3005f",
-              border: "1px solid #ffc0cb",
-              borderRadius: "12px",
-            },
-          }}
-        />
+        <Providers>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "#fff0f5",
+                color: "#b3005f",
+                border: "1px solid #ffc0cb",
+                borderRadius: "12px",
+              },
+            }}
+          />
+        </Providers>
       </body>
     </html>
   );

@@ -9,6 +9,7 @@ export const GET_ALL_PRODUCTS = gql`
       description { html }
       tags
       price
+      category
       image { url width height }
     }
   }
@@ -23,6 +24,7 @@ export const GET_PRODUCT_BY_ID = gql`
       description { html }
       tags
       price
+      category
       image { url width height }
     }
   }
@@ -36,6 +38,7 @@ export const GET_FEATURED_PRODUCTS = gql`
       code
       tags
       price
+      category
       image { url width height }
     }
   }
@@ -62,6 +65,7 @@ export const GET_PRODUCTS_BY_TAG = gql`
       code
       tags
       price
+      category
       image { url width height }
     }
   }

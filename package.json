@@ -12,27 +12,30 @@
     "hygraph:setup": "node scripts/create-schema.mjs && node scripts/seed-content.mjs"
   },
   "dependencies": {
-    "next": "14.2.3",
-    "react": "^18",
-    "react-dom": "^18",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
+    "framer-motion": "^11.1.9",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
-    "framer-motion": "^11.1.9",
+    "next": "14.2.3",
+    "next-auth": "^4.24.14",
+    "react": "^18",
+    "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.2.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@hygraph/management-sdk": "^1.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
-    "@hygraph/management-sdk": "^1.0.0",
-    "dotenv": "^16.4.5"
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }

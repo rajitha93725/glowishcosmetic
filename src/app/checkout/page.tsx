@@ -1,17 +1,24 @@
 "use client";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useCartStore } from "@/store/cartStore";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+
+const MEMBER_DISCOUNT = 0.05;
 
 export default function CheckoutPage() {
+  const { data: session } = useSession();
   const { items, clearCart } = useCartStore();
   const router = useRouter();
   const [form, setForm] = useState({ customerName: "", phone: "", address: "", notes: "" });
   const [loading, setLoading] = useState(false);
 
-  const total = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.quantity, 0);
+  const subtotal = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.quantity, 0);
+  const discountAmount = session ? subtotal * MEMBER_DISCOUNT : 0;
+  const total = subtotal - discountAmount;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +29,12 @@ export default function CheckoutPage() {
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, productIds: items.map((i) => i.product.id) }),
+        body: JSON.stringify({
+          ...form,
+          productIds: items.map((i) => i.product.id),
+          customerEmail: session?.user?.email ?? undefined,
+          discountApplied: discountAmount > 0 ? MEMBER_DISCOUNT * 100 : undefined,
+        }),
       });
 
       if (!res.ok) throw new Error("Order failed");
@@ -50,7 +62,7 @@ export default function CheckoutPage() {
         />
       ) : (
         <input
-          required={key !== "notes"}
+          required={key !== ("notes" as string)}
           type={type}
           value={form[key]}
           onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
@@ -82,44 +94,67 @@ export default function CheckoutPage() {
           </form>
 
           {/* Order Summary */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm h-fit">
-            <h2 className="font-display text-xl font-bold text-pink-700 mb-4">Order Summary</h2>
+          <div className="space-y-4">
+            {/* Guest discount banner */}
+            {!session && (
+              <div className="bg-pink-50 border border-pink-200 rounded-2xl px-4 py-3 flex items-center gap-3">
+                <span className="text-2xl">🎁</span>
+                <p className="text-sm text-pink-700">
+                  <Link href="/auth/login" className="font-bold underline hover:text-pink-900">Sign in</Link>{" "}
+                  to get <span className="font-bold">5% off</span> your order
+                </p>
+              </div>
+            )}
 
-            {items.length === 0 ? (
-              <p className="text-gray-400 text-sm">No items in cart</p>
-            ) : (
-              <>
-                <div className="space-y-3 mb-4">
-                  {items.map(({ product, quantity }) => (
-                    <div key={product.id} className="flex items-center gap-3">
-                      <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-pink-50 flex-shrink-0">
-                        {product.image ? (
-                          <Image src={product.image.url} alt={product.name} fill className="object-cover" sizes="48px" />
-                        ) : (
-                          <span className="flex items-center justify-center h-full text-xl">🌸</span>
+            <div className="bg-white rounded-2xl p-6 shadow-sm h-fit">
+              <h2 className="font-display text-xl font-bold text-pink-700 mb-4">Order Summary</h2>
+
+              {items.length === 0 ? (
+                <p className="text-gray-400 text-sm">No items in cart</p>
+              ) : (
+                <>
+                  <div className="space-y-3 mb-4">
+                    {items.map(({ product, quantity }) => (
+                      <div key={product.id} className="flex items-center gap-3">
+                        <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-pink-50 flex-shrink-0">
+                          {product.image ? (
+                            <Image src={product.image.url} alt={product.name} fill className="object-cover" sizes="48px" />
+                          ) : (
+                            <span className="flex items-center justify-center h-full text-xl">🌸</span>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-800 truncate">{product.name}</p>
+                          <p className="text-xs text-pink-400">Qty: {quantity}</p>
+                        </div>
+                        {product.price && (
+                          <p className="text-sm font-bold text-pink-600">
+                            ${(product.price * quantity).toFixed(2)}
+                          </p>
                         )}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-800 truncate">{product.name}</p>
-                        <p className="text-xs text-pink-400">Qty: {quantity}</p>
-                      </div>
-                      {product.price && (
-                        <p className="text-sm font-bold text-pink-600">
-                          ${(product.price * quantity).toFixed(2)}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="border-t border-pink-100 pt-3">
-                  <div className="flex justify-between font-bold text-pink-700">
-                    <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    ))}
                   </div>
-                </div>
-              </>
-            )}
+
+                  <div className="border-t border-pink-100 pt-3 space-y-1.5">
+                    <div className="flex justify-between text-sm text-gray-500">
+                      <span>Subtotal</span>
+                      <span>${subtotal.toFixed(2)}</span>
+                    </div>
+                    {session && discountAmount > 0 && (
+                      <div className="flex justify-between text-sm text-green-600 font-medium">
+                        <span>✦ Member discount (5%)</span>
+                        <span>−${discountAmount.toFixed(2)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between font-bold text-pink-700 text-base pt-1 border-t border-pink-50">
+                      <span>Total</span>
+                      <span>${total.toFixed(2)}</span>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

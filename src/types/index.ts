@@ -13,6 +13,7 @@ export interface Product {
   price?: number;
   image?: ProductImage;
   featured?: boolean;
+  category?: string;
 }
 
 export interface CartItem {
@@ -26,6 +27,15 @@ export interface OrderInput {
   address: string;
   notes?: string;
   productIds: string[];
+  customerEmail?: string;
+  discountApplied?: number;
+}
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  mobile: string;
 }
 
 export interface WebsiteSettings {

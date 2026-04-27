@@ -6,13 +6,13 @@ import type { OrderInput } from "@/types";
 export async function POST(req: NextRequest) {
   try {
     const body: OrderInput = await req.json();
-    const { customerName, phone, address, notes, productIds } = body;
+    const { customerName, phone, address, notes, productIds, customerEmail, discountApplied } = body;
 
     if (!customerName || !phone || !address || !productIds?.length) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const uniqueProductIds = [...new Set(productIds)].map((id) => ({ id }));
+    const uniqueProductIds = Array.from(new Set(productIds)).map((id) => ({ id }));
 
     console.log("[Orders API] Creating order:", { customerName, phone, address, productIds: uniqueProductIds });
 
@@ -27,6 +27,8 @@ export async function POST(req: NextRequest) {
         address,
         notes,
         productIds: uniqueProductIds,
+        customerEmail: customerEmail ?? null,
+        discountApplied: discountApplied ?? null,
       });
       createOrder = result.createOrder;
       console.log("[Orders API] Order created:", createOrder.id);

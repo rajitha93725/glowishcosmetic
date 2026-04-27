@@ -7,6 +7,8 @@ export const CREATE_ORDER = gql`
     $address: String!
     $notes: String
     $productIds: [ProductWhereUniqueInput!]!
+    $customerEmail: String
+    $discountApplied: Float
   ) {
     createOrder(
       data: {
@@ -15,6 +17,8 @@ export const CREATE_ORDER = gql`
         address: $address
         notes: $notes
         orderedProducts: { connect: $productIds }
+        customerEmail: $customerEmail
+        discountApplied: $discountApplied
       }
     ) {
       id
