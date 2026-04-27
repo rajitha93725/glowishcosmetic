@@ -2,7 +2,8 @@
 import { useCartStore } from "@/store/cartStore";
 import Link from "next/link";
 import Image from "next/image";
-import { FiX, FiTrash2, FiShoppingBag } from "react-icons/fi";
+import { FiX, FiTrash2, FiShoppingBag, FiPlus, FiMinus } from "react-icons/fi";
+import { lkr } from "@/lib/currency";
 
 interface Props {
   open: boolean;
@@ -10,9 +11,11 @@ interface Props {
 }
 
 export function CartDrawer({ open, onClose }: Props) {
-  const { items, removeItem } = useCartStore();
+  const { items, removeItem, updateQuantity } = useCartStore();
 
   if (!open) return null;
+
+  const subtotalUSD = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.quantity, 0);
 
   return (
     <>
@@ -51,16 +54,37 @@ export function CartDrawer({ open, onClose }: Props) {
                     <span className="text-2xl flex items-center justify-center h-full">🌸</span>
                   )}
                 </div>
+
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm text-gray-800 truncate">{product.name}</p>
-                  <p className="text-xs text-pink-400">Qty: {quantity}</p>
                   {product.price && (
-                    <p className="text-sm font-bold text-pink-600">${(product.price * quantity).toFixed(2)}</p>
+                    <p className="text-sm font-bold text-pink-600">{lkr(product.price * quantity)}</p>
                   )}
+
+                  {/* Qty controls */}
+                  <div className="flex items-center gap-1.5 mt-1.5">
+                    <button
+                      onClick={() => updateQuantity(product.id, quantity - 1)}
+                      className="w-6 h-6 flex items-center justify-center rounded-md border border-pink-200 text-pink-400 hover:bg-pink-100 transition-colors"
+                      aria-label="Decrease"
+                    >
+                      <FiMinus className="text-xs" />
+                    </button>
+                    <span className="text-sm font-semibold text-gray-700 w-5 text-center">{quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(product.id, quantity + 1)}
+                      className="w-6 h-6 flex items-center justify-center rounded-md border border-pink-200 text-pink-400 hover:bg-pink-100 transition-colors"
+                      aria-label="Increase"
+                    >
+                      <FiPlus className="text-xs" />
+                    </button>
+                  </div>
                 </div>
+
                 <button
                   onClick={() => removeItem(product.id)}
-                  className="text-pink-300 hover:text-pink-500 p-1"
+                  className="text-pink-300 hover:text-pink-500 p-1 flex-shrink-0"
+                  aria-label="Remove"
                 >
                   <FiTrash2 />
                 </button>
@@ -71,7 +95,14 @@ export function CartDrawer({ open, onClose }: Props) {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="p-4 border-t border-pink-100">
+          <div className="p-4 border-t border-pink-100 space-y-3">
+            <div className="flex justify-between items-baseline">
+              <span className="text-sm text-gray-500">Subtotal</span>
+              <div className="text-right">
+                <p className="font-bold text-pink-700">{lkr(subtotalUSD)}</p>
+                <p className="text-xs text-gray-400">(${subtotalUSD.toFixed(2)} USD)</p>
+              </div>
+            </div>
             <Link href="/checkout" onClick={onClose} className="btn-primary w-full text-center block">
               Proceed to Checkout
             </Link>

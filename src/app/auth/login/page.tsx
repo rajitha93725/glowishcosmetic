@@ -48,10 +48,10 @@ export default function LoginPage() {
         {/* Card */}
         <div className="bg-white rounded-3xl shadow-sm border border-pink-100 p-8">
           {/* Discount callout */}
-          <div className="bg-pink-50 border border-pink-200 rounded-2xl px-4 py-3 mb-6 flex items-center gap-3">
+          <div className="bg-pink-50 border border-pink-200 rounded-2xl px-4 py-3 mb-6 flex flex-col items-center gap-1 text-center">
             <span className="text-2xl">🎁</span>
             <p className="text-sm text-pink-700 font-medium">
-              Members enjoy <span className="font-bold">5% off</span> every order
+              All the Registered Members enjoy <span className="font-bold">5% off</span> for every orders
             </p>
           </div>
 

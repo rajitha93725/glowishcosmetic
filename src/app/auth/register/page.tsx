@@ -7,9 +7,21 @@ import { GiFlowerEmblem } from "react-icons/gi";
 import { FiUser, FiMail, FiPhone, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import toast from "react-hot-toast";
 
+const COUNTRY_CODES = [
+  { code: "+94", label: "🇱🇰 +94" },
+  { code: "+91", label: "🇮🇳 +91" },
+  { code: "+1",  label: "🇺🇸 +1"  },
+  { code: "+44", label: "🇬🇧 +44" },
+  { code: "+61", label: "🇦🇺 +61" },
+  { code: "+971",label: "🇦🇪 +971"},
+  { code: "+65", label: "🇸🇬 +65" },
+  { code: "+60", label: "🇲🇾 +60" },
+];
+
 export default function RegisterPage() {
   const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", mobile: "", password: "" });
+  const [mobileCode, setMobileCode] = useState("+94");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +37,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, mobile: `${mobileCode} ${form.mobile}` }),
       });
       const data = await res.json();
 
@@ -102,10 +114,21 @@ export default function RegisterPage() {
             {/* Mobile */}
             <div>
               <label className="text-sm font-medium text-gray-600 block mb-1">Mobile number</label>
-              <div className="relative">
-                <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300" />
-                <input required type="tel" placeholder="+94 71 234 5678" value={form.mobile} onChange={set("mobile")}
-                  className="w-full border border-pink-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300" />
+              <div className="flex">
+                <select
+                  value={mobileCode}
+                  onChange={(e) => setMobileCode(e.target.value)}
+                  className="border border-pink-200 border-r-0 rounded-l-xl px-2 py-2.5 text-sm bg-pink-50 text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-300 flex-shrink-0"
+                >
+                  {COUNTRY_CODES.map((c) => (
+                    <option key={c.code} value={c.code}>{c.label}</option>
+                  ))}
+                </select>
+                <div className="relative flex-1">
+                  <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-300" />
+                  <input required type="tel" placeholder="71 601 2640" value={form.mobile} onChange={set("mobile")}
+                    className="w-full border border-pink-200 rounded-r-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300" />
+                </div>
               </div>
             </div>
 

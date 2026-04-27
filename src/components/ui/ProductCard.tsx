@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { FiShoppingCart } from "react-icons/fi";
+import { useState } from "react";
+import { FiShoppingCart, FiPlus, FiMinus } from "react-icons/fi";
 import { useCartStore } from "@/store/cartStore";
 import toast from "react-hot-toast";
 import type { Product } from "@/types";
+import { lkr, usdLabel } from "@/lib/currency";
 
 const CATEGORY_LABELS: Record<string, string> = {
   SkinCare: "Skin Care",
@@ -26,11 +28,13 @@ interface Props {
 
 export function ProductCard({ product }: Props) {
   const addItem = useCartStore((s) => s.addItem);
+  const [qty, setQty] = useState(1);
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
-    addItem(product);
-    toast.success(`${product.name} added to cart!`);
+    addItem(product, qty);
+    toast.success(`${product.name} ×${qty} added to cart!`);
+    setQty(1);
   };
 
   const categoryLabel = product.category ? CATEGORY_LABELS[product.category] ?? product.category : null;
@@ -53,7 +57,6 @@ export function ProductCard({ product }: Props) {
             <span>🌸</span>
           </div>
         )}
-        {/* Category badge overlay */}
         {categoryLabel && (
           <div className="absolute top-2 left-2">
             <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${categoryColor}`}>
@@ -72,19 +75,42 @@ export function ProductCard({ product }: Props) {
           </h3>
         </Link>
 
-        <div className="flex items-center justify-between mt-2 sm:mt-3">
-          {product.price != null ? (
-            <span className="font-bold text-pink-600 text-base sm:text-lg">${product.price.toFixed(2)}</span>
-          ) : (
-            <span className="text-pink-300 text-sm italic">On request</span>
-          )}
+        {/* Price */}
+        {product.price != null ? (
+          <div className="mb-3">
+            <span className="font-bold text-pink-600 text-base sm:text-lg">{lkr(product.price)}</span>
+            <span className="ml-1.5 text-xs text-gray-400">({usdLabel(product.price)})</span>
+          </div>
+        ) : (
+          <p className="text-pink-300 text-sm italic mb-3">On request</p>
+        )}
+
+        {/* Qty stepper + Add */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center border border-pink-200 rounded-lg overflow-hidden">
+            <button
+              onClick={(e) => { e.preventDefault(); setQty((q) => Math.max(1, q - 1)); }}
+              className="px-2 py-1.5 text-pink-400 hover:bg-pink-50 transition-colors"
+              aria-label="Decrease quantity"
+            >
+              <FiMinus className="text-xs" />
+            </button>
+            <span className="px-2 text-sm font-semibold text-gray-700 min-w-[1.5rem] text-center">{qty}</span>
+            <button
+              onClick={(e) => { e.preventDefault(); setQty((q) => q + 1); }}
+              className="px-2 py-1.5 text-pink-400 hover:bg-pink-50 transition-colors"
+              aria-label="Increase quantity"
+            >
+              <FiPlus className="text-xs" />
+            </button>
+          </div>
 
           <button
             onClick={handleAdd}
-            className="flex items-center gap-1 sm:gap-1.5 btn-primary !px-3 sm:!px-4 !py-1.5 sm:!py-2 text-xs sm:text-sm"
+            className="flex-1 flex items-center justify-center gap-1 btn-primary !px-3 !py-1.5 text-xs sm:text-sm"
           >
-            <FiShoppingCart className="text-sm sm:text-base" />
-            <span className="hidden xs:inline sm:inline">Add</span>
+            <FiShoppingCart className="text-sm" />
+            <span>Add</span>
           </button>
         </div>
       </div>

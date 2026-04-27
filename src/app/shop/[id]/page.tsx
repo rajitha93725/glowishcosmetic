@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { AddToCartButton } from "@/components/ui/AddToCartButton";
 import type { Product } from "@/types";
+import { lkr, usdLabel } from "@/lib/currency";
 
 export async function generateStaticParams() {
   try {
@@ -60,7 +61,10 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
             <h1 className="font-display text-3xl font-bold text-pink-800 mb-4">{product.name}</h1>
 
             {product.price != null && (
-              <p className="text-2xl font-bold text-pink-500 mb-4">${product.price.toFixed(2)}</p>
+              <div className="mb-4">
+                <p className="text-2xl font-bold text-pink-500">{lkr(product.price)}</p>
+                <p className="text-sm text-gray-400 mt-0.5">{usdLabel(product.price)} USD</p>
+              </div>
             )}
 
             {product.description?.html && (
