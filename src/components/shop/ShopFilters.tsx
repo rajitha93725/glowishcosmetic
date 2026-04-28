@@ -47,8 +47,8 @@ export function ShopFilters({ activeCategory }: Props) {
           onClick={() => setCategory(null)}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
             !activeCategory
-              ? "bg-pink-500 text-white shadow-sm"
-              : "bg-white text-pink-500 border border-pink-200 hover:bg-pink-50"
+              ? "bg-[#333333] text-white shadow-sm"
+              : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-[#fff0f5]"
           }`}
         >
           All Products
@@ -59,8 +59,8 @@ export function ShopFilters({ activeCategory }: Props) {
             onClick={() => setCategory(cat.apiId)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-1.5 ${
               activeCategory === cat.apiId
-                ? "bg-pink-500 text-white shadow-sm"
-                : "bg-white text-pink-500 border border-pink-200 hover:bg-pink-50"
+                ? "bg-[#333333] text-white shadow-sm"
+                : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-[#fff0f5]"
             }`}
           >
             <span>{cat.emoji}</span>
@@ -75,7 +75,7 @@ export function ShopFilters({ activeCategory }: Props) {
         placeholder="Search products..."
         defaultValue={searchParams.get("search") ?? ""}
         onChange={handleSearch}
-        className="border border-pink-200 rounded-full px-5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white w-full sm:w-72"
+        className="border border-[#333333]/20 rounded-full px-5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#333333]/50 bg-white w-full sm:w-72"
       />
     </div>
   );

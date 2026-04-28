@@ -16,10 +16,10 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  SkinCare:  "bg-pink-100 text-pink-600",
+  SkinCare:  "bg-[#fff0f5] text-[#333333]",
   Fragrance: "bg-fuchsia-100 text-fuchsia-600",
   Hair:      "bg-purple-100 text-purple-600",
-  Makeup:    "bg-rose-100 text-rose-600",
+  Makeup:    "bg-[#fff0f5] text-[#333333]",
 };
 
 interface Props {
@@ -38,12 +38,12 @@ export function ProductCard({ product }: Props) {
   };
 
   const categoryLabel = product.category ? CATEGORY_LABELS[product.category] ?? product.category : null;
-  const categoryColor = product.category ? CATEGORY_COLORS[product.category] ?? "bg-pink-100 text-pink-600" : "";
+  const categoryColor = product.category ? CATEGORY_COLORS[product.category] ?? "bg-[#fff0f5] text-[#333333]" : "";
 
   return (
     <div className="card group animate-fade-in">
       {/* Image */}
-      <Link href={`/shop/${product.id}`} className="block relative h-48 sm:h-56 bg-pink-50 overflow-hidden">
+      <Link href={`/shop/${product.id}`} className="block relative h-48 sm:h-56 bg-gray-50 overflow-hidden">
         {product.image ? (
           <Image
             src={product.image.url}
@@ -68,9 +68,9 @@ export function ProductCard({ product }: Props) {
 
       {/* Info */}
       <div className="p-3 sm:p-4">
-        <p className="text-xs text-pink-300 font-mono mb-1 truncate">{product.code}</p>
+        <p className="text-xs text-gray-400 font-mono mb-1 truncate">{product.code}</p>
         <Link href={`/shop/${product.id}`}>
-          <h3 className="font-semibold text-gray-800 hover:text-pink-600 transition-colors leading-snug mb-2 line-clamp-2 text-sm sm:text-base">
+          <h3 className="font-semibold text-gray-800 hover:text-[#333333] transition-colors leading-snug mb-2 line-clamp-2 text-sm sm:text-base">
             {product.name}
           </h3>
         </Link>
@@ -78,19 +78,19 @@ export function ProductCard({ product }: Props) {
         {/* Price */}
         {product.price != null ? (
           <div className="mb-3">
-            <span className="font-bold text-pink-600 text-base sm:text-lg">{lkr(product.price)}</span>
+            <span className="font-bold text-[#333333] text-base sm:text-lg">{lkr(product.price)}</span>
             <span className="ml-1.5 text-xs text-gray-400">({usdLabel(product.price)})</span>
           </div>
         ) : (
-          <p className="text-pink-300 text-sm italic mb-3">On request</p>
+          <p className="text-gray-400 text-sm italic mb-3">On request</p>
         )}
 
         {/* Qty stepper + Add */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center border border-pink-200 rounded-lg overflow-hidden">
+          <div className="flex items-center border border-[#333333]/20 rounded-lg overflow-hidden">
             <button
               onClick={(e) => { e.preventDefault(); setQty((q) => Math.max(1, q - 1)); }}
-              className="px-2 py-1.5 text-pink-400 hover:bg-pink-50 transition-colors"
+              className="px-2 py-1.5 text-[#333333] hover:bg-gray-100 transition-colors"
               aria-label="Decrease quantity"
             >
               <FiMinus className="text-xs" />
@@ -98,7 +98,7 @@ export function ProductCard({ product }: Props) {
             <span className="px-2 text-sm font-semibold text-gray-700 min-w-[1.5rem] text-center">{qty}</span>
             <button
               onClick={(e) => { e.preventDefault(); setQty((q) => q + 1); }}
-              className="px-2 py-1.5 text-pink-400 hover:bg-pink-50 transition-colors"
+              className="px-2 py-1.5 text-[#333333] hover:bg-gray-100 transition-colors"
               aria-label="Increase quantity"
             >
               <FiPlus className="text-xs" />

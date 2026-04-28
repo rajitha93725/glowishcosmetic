@@ -8,17 +8,17 @@ interface Props {
 
 export function FeaturedProducts({ products }: Props) {
   return (
-    <section className="py-12 sm:py-20 bg-[#fff5f8]">
+    <section className="py-12 sm:py-20 bg-[#fff0f5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="flex items-end justify-between mb-8 sm:mb-12">
           <div>
-            <p className="text-pink-400 tracking-widest uppercase text-xs font-semibold mb-2">Bestsellers</p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-pink-900">
+            <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-semibold mb-2">Bestsellers</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#333333]">
               Our Stars ✦
             </h2>
           </div>
-          <Link href="/shop" className="flex items-center gap-2 text-pink-500 font-semibold text-sm hover:gap-3 transition-all">
+          <Link href="/shop" className="flex items-center gap-2 text-[#333333] font-semibold text-sm hover:gap-3 transition-all">
             Shop All <span>→</span>
           </Link>
         </div>
@@ -31,11 +31,11 @@ export function FeaturedProducts({ products }: Props) {
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {[...Array(3)].map((_, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse">
-                <div className="h-44 sm:h-56 bg-pink-100" />
+                <div className="h-44 sm:h-56 bg-gray-200" />
                 <div className="p-3 sm:p-4 space-y-3">
-                  <div className="h-3 bg-pink-100 rounded w-1/4" />
-                  <div className="h-4 bg-pink-100 rounded w-3/4" />
-                  <div className="h-4 bg-pink-100 rounded w-1/2" />
+                  <div className="h-3 bg-gray-200 rounded w-1/4" />
+                  <div className="h-4 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2" />
                 </div>
               </div>
             ))}

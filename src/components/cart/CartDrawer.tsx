@@ -28,11 +28,11 @@ export function CartDrawer({ open, onClose }: Props) {
       {/* Drawer */}
       <div className="fixed right-0 top-0 h-full w-full max-w-sm bg-white z-50 shadow-2xl flex flex-col animate-slide-up">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-pink-100">
-          <h2 className="font-display text-xl font-bold text-pink-700 flex items-center gap-2">
+        <div className="flex items-center justify-between p-4 border-b border-[#333333]/10">
+          <h2 className="font-display text-xl font-bold text-[#333333] flex items-center gap-2">
             <FiShoppingBag /> Your Cart
           </h2>
-          <button onClick={onClose} className="p-2 hover:bg-pink-50 rounded-full text-gray-500">
+          <button onClick={onClose} className="p-2 hover:bg-[#fff0f5] rounded-full text-gray-500">
             <FiX />
           </button>
         </div>
@@ -41,12 +41,12 @@ export function CartDrawer({ open, onClose }: Props) {
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {items.length === 0 ? (
             <div className="text-center py-16 text-gray-400">
-              <FiShoppingBag className="text-5xl mx-auto mb-3 text-pink-200" />
+              <FiShoppingBag className="text-5xl mx-auto mb-3 text-gray-200" />
               <p>Your cart is empty</p>
             </div>
           ) : (
             items.map(({ product, quantity }) => (
-              <div key={product.id} className="flex gap-3 items-center bg-pink-50 rounded-xl p-3">
+              <div key={product.id} className="flex gap-3 items-center bg-[#fff0f5] rounded-xl p-3">
                 <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-white flex-shrink-0">
                   {product.image ? (
                     <Image src={product.image.url} alt={product.name} fill className="object-cover" sizes="56px" />
@@ -58,14 +58,14 @@ export function CartDrawer({ open, onClose }: Props) {
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm text-gray-800 truncate">{product.name}</p>
                   {product.price && (
-                    <p className="text-sm font-bold text-pink-600">{lkr(product.price * quantity)}</p>
+                    <p className="text-sm font-bold text-[#333333]">{lkr(product.price * quantity)}</p>
                   )}
 
                   {/* Qty controls */}
                   <div className="flex items-center gap-1.5 mt-1.5">
                     <button
                       onClick={() => updateQuantity(product.id, quantity - 1)}
-                      className="w-6 h-6 flex items-center justify-center rounded-md border border-pink-200 text-pink-400 hover:bg-pink-100 transition-colors"
+                      className="w-6 h-6 flex items-center justify-center rounded-md border border-[#333333]/20 text-[#333333] hover:bg-white transition-colors"
                       aria-label="Decrease"
                     >
                       <FiMinus className="text-xs" />
@@ -73,7 +73,7 @@ export function CartDrawer({ open, onClose }: Props) {
                     <span className="text-sm font-semibold text-gray-700 w-5 text-center">{quantity}</span>
                     <button
                       onClick={() => updateQuantity(product.id, quantity + 1)}
-                      className="w-6 h-6 flex items-center justify-center rounded-md border border-pink-200 text-pink-400 hover:bg-pink-100 transition-colors"
+                      className="w-6 h-6 flex items-center justify-center rounded-md border border-[#333333]/20 text-[#333333] hover:bg-white transition-colors"
                       aria-label="Increase"
                     >
                       <FiPlus className="text-xs" />
@@ -83,7 +83,7 @@ export function CartDrawer({ open, onClose }: Props) {
 
                 <button
                   onClick={() => removeItem(product.id)}
-                  className="text-pink-300 hover:text-pink-500 p-1 flex-shrink-0"
+                  className="text-gray-400 hover:text-[#333333] p-1 flex-shrink-0"
                   aria-label="Remove"
                 >
                   <FiTrash2 />
@@ -95,11 +95,11 @@ export function CartDrawer({ open, onClose }: Props) {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="p-4 border-t border-pink-100 space-y-3">
+          <div className="p-4 border-t border-[#333333]/10 space-y-3">
             <div className="flex justify-between items-baseline">
               <span className="text-sm text-gray-500">Subtotal</span>
               <div className="text-right">
-                <p className="font-bold text-pink-700">{lkr(subtotalUSD)}</p>
+                <p className="font-bold text-[#333333]">{lkr(subtotalUSD)}</p>
                 <p className="text-xs text-gray-400">(${subtotalUSD.toFixed(2)} USD)</p>
               </div>
             </div>

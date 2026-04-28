@@ -18,10 +18,10 @@ export function AddToCartButton({ product }: { product: Product }) {
   return (
     <div className="flex items-center gap-3">
       {/* Qty stepper */}
-      <div className="flex items-center border border-pink-200 rounded-xl overflow-hidden">
+      <div className="flex items-center border border-[#333333]/20 rounded-xl overflow-hidden">
         <button
           onClick={() => setQty((q) => Math.max(1, q - 1))}
-          className="px-3 py-2.5 text-pink-400 hover:bg-pink-50 transition-colors"
+          className="px-3 py-2.5 text-[#333333] hover:bg-gray-100 transition-colors"
           aria-label="Decrease quantity"
         >
           <FiMinus />
@@ -29,7 +29,7 @@ export function AddToCartButton({ product }: { product: Product }) {
         <span className="px-4 text-base font-bold text-gray-700 min-w-[2.5rem] text-center">{qty}</span>
         <button
           onClick={() => setQty((q) => q + 1)}
-          className="px-3 py-2.5 text-pink-400 hover:bg-pink-50 transition-colors"
+          className="px-3 py-2.5 text-[#333333] hover:bg-gray-100 transition-colors"
           aria-label="Increase quantity"
         >
           <FiPlus />

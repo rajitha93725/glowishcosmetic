@@ -24,12 +24,12 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-pink-100 shadow-sm">
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-[#333333]/10 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <GiFlowerEmblem className="text-pink-400 text-2xl group-hover:rotate-12 transition-transform" />
-            <span className="font-display font-bold text-xl text-pink-600">Glowish</span>
+            <GiFlowerEmblem className="text-[#333333] text-2xl group-hover:rotate-12 transition-transform" />
+            <span className="font-display font-bold text-xl text-[#333333]">Glowish</span>
           </Link>
 
           {/* Desktop nav */}
@@ -38,7 +38,7 @@ export function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-gray-600 hover:text-pink-500 font-medium transition-colors text-sm"
+                className="text-gray-600 hover:text-[#333333] font-medium transition-colors text-sm"
               >
                 {l.label}
               </Link>
@@ -51,12 +51,12 @@ export function Navbar() {
 
             <button
               onClick={() => setCartOpen(true)}
-              className="relative p-2 text-pink-500 hover:bg-pink-50 rounded-full transition-colors"
+              className="relative p-2 text-[#333333] hover:bg-[#fff0f5] rounded-full transition-colors"
               aria-label="Open cart"
             >
               <FiShoppingCart className="text-xl" />
               {mounted && totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 bg-[#333333] text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {totalItems}
                 </span>
               )}
@@ -64,7 +64,7 @@ export function Navbar() {
 
             {/* Mobile menu toggle */}
             <button
-              className="md:hidden p-2 text-pink-500 hover:bg-pink-50 rounded-full"
+              className="md:hidden p-2 text-[#333333] hover:bg-[#fff0f5] rounded-full"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -75,12 +75,12 @@ export function Navbar() {
 
         {/* Mobile nav */}
         {menuOpen && (
-          <nav className="md:hidden bg-white border-t border-pink-100 px-4 py-4 flex flex-col gap-3">
+          <nav className="md:hidden bg-white border-t border-[#333333]/10 px-4 py-4 flex flex-col gap-3">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-gray-600 hover:text-pink-500 font-medium py-2"
+                className="text-gray-600 hover:text-[#333333] font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
                 {l.label}
