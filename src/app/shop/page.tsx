@@ -38,9 +38,9 @@ export default async function ShopPage({
   const pageTitle = category ? CATEGORY_LABELS[category] ?? category : "Our Products";
 
   return (
-    <div className="min-h-screen bg-pink-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-pink-100 py-10">
+      <div className="bg-white border-b border-[#333333]/10 py-10">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="section-title">{pageTitle}</h1>
           <p className="section-subtitle mb-0">
@@ -57,10 +57,10 @@ export default async function ShopPage({
             {filtered.map((p) => <ProductCard key={p.id} product={p} />)}
           </div>
         ) : (
-          <div className="text-center py-24 text-pink-300">
-            <p className="text-5xl mb-4">🌸</p>
-            <p className="text-xl font-display">No products found</p>
-            <p className="text-sm mt-2">Try a different category or search term</p>
+          <div className="text-center py-24 text-gray-300">
+            <p className="text-5xl mb-4">✨</p>
+            <p className="text-xl font-display font-normal tracking-wide text-[#333333]">No products found</p>
+            <p className="text-sm mt-2 text-gray-500 font-light">Try a different category or search term</p>
           </div>
         )}
       </div>

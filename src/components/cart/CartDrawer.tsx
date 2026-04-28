@@ -29,10 +29,10 @@ export function CartDrawer({ open, onClose }: Props) {
       <div className="fixed right-0 top-0 h-full w-full max-w-sm bg-white z-50 shadow-2xl flex flex-col animate-slide-up">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-[#333333]/10">
-          <h2 className="font-display text-xl font-bold text-[#333333] flex items-center gap-2">
+          <h2 className="font-display text-xl font-normal tracking-wide text-[#333333] flex items-center gap-2">
             <FiShoppingBag /> Your Cart
           </h2>
-          <button onClick={onClose} className="p-2 hover:bg-[#fff0f5] rounded-full text-gray-500">
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-none text-gray-500">
             <FiX />
           </button>
         </div>
@@ -46,8 +46,8 @@ export function CartDrawer({ open, onClose }: Props) {
             </div>
           ) : (
             items.map(({ product, quantity }) => (
-              <div key={product.id} className="flex gap-3 items-center bg-[#fff0f5] rounded-xl p-3">
-                <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-white flex-shrink-0">
+              <div key={product.id} className="flex gap-3 items-center bg-gray-50 rounded-none p-3 border border-[#333333]/5">
+                <div className="relative w-14 h-14 rounded-none overflow-hidden bg-white flex-shrink-0">
                   {product.image ? (
                     <Image src={product.image.url} alt={product.name} fill className="object-cover" sizes="56px" />
                   ) : (
@@ -65,15 +65,15 @@ export function CartDrawer({ open, onClose }: Props) {
                   <div className="flex items-center gap-1.5 mt-1.5">
                     <button
                       onClick={() => updateQuantity(product.id, quantity - 1)}
-                      className="w-6 h-6 flex items-center justify-center rounded-md border border-[#333333]/20 text-[#333333] hover:bg-white transition-colors"
+                      className="w-6 h-6 flex items-center justify-center rounded-none border border-[#333333]/20 text-[#333333] hover:bg-white transition-colors"
                       aria-label="Decrease"
                     >
                       <FiMinus className="text-xs" />
                     </button>
-                    <span className="text-sm font-semibold text-gray-700 w-5 text-center">{quantity}</span>
+                    <span className="text-sm font-normal text-gray-700 w-5 text-center">{quantity}</span>
                     <button
                       onClick={() => updateQuantity(product.id, quantity + 1)}
-                      className="w-6 h-6 flex items-center justify-center rounded-md border border-[#333333]/20 text-[#333333] hover:bg-white transition-colors"
+                      className="w-6 h-6 flex items-center justify-center rounded-none border border-[#333333]/20 text-[#333333] hover:bg-white transition-colors"
                       aria-label="Increase"
                     >
                       <FiPlus className="text-xs" />

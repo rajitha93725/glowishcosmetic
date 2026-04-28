@@ -45,10 +45,10 @@ export function ShopFilters({ activeCategory }: Props) {
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setCategory(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+          className={`px-4 py-2 rounded-none text-sm font-normal tracking-wide transition-colors ${
             !activeCategory
               ? "bg-[#333333] text-white shadow-sm"
-              : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-[#fff0f5]"
+              : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-gray-50"
           }`}
         >
           All Products
@@ -57,10 +57,10 @@ export function ShopFilters({ activeCategory }: Props) {
           <button
             key={cat.apiId}
             onClick={() => setCategory(cat.apiId)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-none text-sm font-normal tracking-wide transition-colors flex items-center gap-1.5 ${
               activeCategory === cat.apiId
                 ? "bg-[#333333] text-white shadow-sm"
-                : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-[#fff0f5]"
+                : "bg-white text-[#333333] border border-[#333333]/20 hover:bg-gray-50"
             }`}
           >
             <span>{cat.emoji}</span>
@@ -75,7 +75,7 @@ export function ShopFilters({ activeCategory }: Props) {
         placeholder="Search products..."
         defaultValue={searchParams.get("search") ?? ""}
         onChange={handleSearch}
-        className="border border-[#333333]/20 rounded-full px-5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#333333]/50 bg-white w-full sm:w-72"
+        className="border border-[#333333]/20 rounded-none px-5 py-2 text-sm font-normal focus:outline-none focus:border-[#333333] bg-white w-full sm:w-72"
       />
     </div>
   );

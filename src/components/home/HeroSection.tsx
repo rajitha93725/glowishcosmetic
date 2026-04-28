@@ -75,15 +75,15 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="max-w-2xl"
           >
-            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold text-white mb-4 drop-shadow-md">
+            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-normal tracking-wider text-white mb-4 drop-shadow-md">
               {SLIDES[currentIndex].title}
             </h1>
-            <p className="text-lg sm:text-xl text-white/90 mb-8 drop-shadow">
+            <p className="text-lg sm:text-xl font-light tracking-wide text-white/90 mb-8 drop-shadow">
               {SLIDES[currentIndex].subtitle}
             </p>
             <Link
               href="/shop"
-              className="inline-block bg-white text-[#333333] hover:bg-[#fff0f5] font-bold px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-block bg-white text-[#333333] hover:bg-gray-100 font-normal tracking-widest uppercase text-sm px-8 py-4 rounded-none transition-all shadow-sm hover:shadow active:scale-95"
             >
               {SLIDES[currentIndex].cta}
             </Link>

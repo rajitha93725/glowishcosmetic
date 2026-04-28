@@ -37,7 +37,7 @@ export function TestimonialsSection() {
           {REVIEWS.map((r, i) => (
             <div
               key={i}
-              className="relative bg-gradient-to-br from-[#fff0f5] to-white border border-[#333333]/10 rounded-2xl sm:rounded-3xl p-5 sm:p-7 hover:-translate-y-1 transition-transform duration-300"
+              className="relative bg-white border border-[#333333]/10 rounded-none p-5 sm:p-7 hover:-translate-y-1 transition-transform duration-300 shadow-sm"
             >
               {/* Quote mark */}
               <div className="absolute top-4 right-5 sm:top-5 sm:right-6 text-5xl sm:text-6xl text-gray-100 font-display leading-none select-none">"</div>
@@ -54,7 +54,7 @@ export function TestimonialsSection() {
               </p>
 
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#fff0f5] flex items-center justify-center text-lg sm:text-xl flex-shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-none bg-[#fff0f5] flex items-center justify-center text-lg sm:text-xl flex-shrink-0">
                   {r.avatar}
                 </div>
                 <div>

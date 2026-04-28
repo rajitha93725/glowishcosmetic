@@ -10,6 +10,7 @@ export const GET_ALL_PRODUCTS = gql`
       tags
       price
       category
+      featured
       image { url width height }
     }
   }

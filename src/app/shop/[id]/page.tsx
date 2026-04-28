@@ -29,11 +29,11 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
   if (!product) return notFound();
 
   return (
-    <div className="min-h-screen bg-pink-50 py-12">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="bg-white rounded-3xl shadow-sm overflow-hidden grid md:grid-cols-2 gap-0">
+    <div className="min-h-screen bg-white py-12">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="bg-white rounded-none border border-[#333333]/10 shadow-sm overflow-hidden grid md:grid-cols-2 gap-0">
           {/* Image */}
-          <div className="relative h-72 md:h-auto bg-pink-50 min-h-[320px]">
+          <div className="relative h-72 md:h-auto bg-gray-50 min-h-[320px]">
             {product.image ? (
               <Image
                 src={product.image.url}
@@ -57,19 +57,19 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               ))}
             </div>
 
-            <p className="text-xs text-pink-300 font-mono mb-1">{product.code}</p>
-            <h1 className="font-display text-3xl font-bold text-pink-800 mb-4">{product.name}</h1>
+            <p className="text-xs text-gray-400 font-mono mb-1">{product.code}</p>
+            <h1 className="font-display text-3xl font-normal tracking-wide text-[#333333] mb-4">{product.name}</h1>
 
             {product.price != null && (
               <div className="mb-4">
-                <p className="text-2xl font-bold text-pink-500">{lkr(product.price)}</p>
+                <p className="text-2xl font-medium tracking-wide text-[#333333]">{lkr(product.price)}</p>
                 <p className="text-sm text-gray-400 mt-0.5">{usdLabel(product.price)} USD</p>
               </div>
             )}
 
             {product.description?.html && (
               <div
-                className="text-gray-600 text-sm leading-relaxed mb-6 prose prose-pink max-w-none"
+                className="text-gray-600 font-light tracking-wide text-sm leading-relaxed mb-6 prose prose-stone max-w-none"
                 dangerouslySetInnerHTML={{ __html: product.description.html }}
               />
             )}

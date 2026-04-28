@@ -38,7 +38,7 @@ export function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-gray-600 hover:text-[#333333] font-medium transition-colors text-sm"
+                className="text-[#333333] hover:text-black font-normal tracking-widest uppercase transition-colors text-[11px]"
               >
                 {l.label}
               </Link>
@@ -51,12 +51,12 @@ export function Navbar() {
 
             <button
               onClick={() => setCartOpen(true)}
-              className="relative p-2 text-[#333333] hover:bg-[#fff0f5] rounded-full transition-colors"
+              className="relative p-2 text-[#333333] hover:bg-[#fff0f5] rounded-none transition-colors"
               aria-label="Open cart"
             >
               <FiShoppingCart className="text-xl" />
               {mounted && totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#333333] text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 bg-[#333333] text-white text-xs w-4 h-4 rounded-none flex items-center justify-center font-bold">
                   {totalItems}
                 </span>
               )}
