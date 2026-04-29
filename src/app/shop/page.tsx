@@ -1,8 +1,8 @@
 import { hygraphClient } from "@/lib/hygraph";
-import { GET_ALL_PRODUCTS } from "@/lib/queries";
+import { GET_ALL_PRODUCTS, GET_ALL_BRANDS } from "@/lib/queries";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { ShopFilters } from "@/components/shop/ShopFilters";
-import type { Product } from "@/types";
+import type { Product, Brand } from "@/types";
 
 async function getProducts(): Promise<Product[]> {
   try {
@@ -13,23 +13,34 @@ async function getProducts(): Promise<Product[]> {
   }
 }
 
+async function getBrands(): Promise<Brand[]> {
+  try {
+    const data = await hygraphClient.request<{ brands: Brand[] }>(GET_ALL_BRANDS);
+    return data.brands;
+  } catch {
+    return [];
+  }
+}
+
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: { category?: string; search?: string };
+  searchParams: { category?: string; search?: string; brand?: string };
 }) {
-  const allProducts = await getProducts();
+  const [allProducts, allBrands] = await Promise.all([getProducts(), getBrands()]);
   const category = searchParams.category;
   const search = searchParams.search?.toLowerCase();
+  const brand = searchParams.brand;
 
   const filtered = allProducts.filter((p) => {
     const matchesCategory = !category || p.category === category;
+    const matchesBrand = !brand || p.brand?.slug === brand || p.brand?.name === brand;
     const matchesSearch =
       !search ||
       p.name.toLowerCase().includes(search) ||
       p.code?.toLowerCase().includes(search) ||
       p.tags?.some((t) => t.toLowerCase().includes(search));
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSearch && matchesBrand;
   });
 
   const CATEGORY_LABELS: Record<string, string> = {
@@ -50,7 +61,7 @@ export default async function ShopPage({
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <ShopFilters activeCategory={category} />
+        <ShopFilters activeCategory={category} activeBrand={brand} brands={allBrands} />
 
         {filtered.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 mt-8">

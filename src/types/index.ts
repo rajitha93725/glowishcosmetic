@@ -4,6 +4,12 @@ export interface ProductImage {
   height?: number;
 }
 
+export interface Brand {
+  id: string;
+  name: string;
+  slug?: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -14,6 +20,7 @@ export interface Product {
   image?: ProductImage;
   featured?: boolean;
   category?: string;
+  brand?: Brand;
 }
 
 export interface CartItem {

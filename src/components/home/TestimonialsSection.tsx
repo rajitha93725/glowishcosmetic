@@ -26,9 +26,9 @@ export function TestimonialsSection() {
   return (
     <section className="py-12 sm:py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-8 sm:mb-14">
+        <div className="text-center amb-8 sm:mb-14">
           <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-semibold mb-2">Reviews</p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#333333]">
+          <h2 className="font-display text-3xl sm:text-4xl font-normal text-[#333333]">
             Real Glow. Real People.
           </h2>
         </div>

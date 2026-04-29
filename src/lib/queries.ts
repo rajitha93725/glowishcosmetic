@@ -10,6 +10,7 @@ export const GET_ALL_PRODUCTS = gql`
       tags
       price
       category
+      brand { id name slug }
       featured
       image { url width height }
     }
@@ -26,6 +27,7 @@ export const GET_PRODUCT_BY_ID = gql`
       tags
       price
       category
+      brand { id name slug }
       image { url width height }
     }
   }
@@ -40,6 +42,7 @@ export const GET_FEATURED_PRODUCTS = gql`
       tags
       price
       category
+      brand { id name slug }
       image { url width height }
     }
   }
@@ -67,7 +70,18 @@ export const GET_PRODUCTS_BY_TAG = gql`
       tags
       price
       category
+      brand { id name slug }
       image { url width height }
+    }
+  }
+`;
+
+export const GET_ALL_BRANDS = gql`
+  query GetAllBrands {
+    brands(orderBy: name_ASC) {
+      id
+      name
+      slug
     }
   }
 `;

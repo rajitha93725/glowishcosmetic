@@ -69,7 +69,12 @@ export function ProductCard({ product, hideAddToCart }: Props) {
 
       {/* Info */}
       <div className="p-3 sm:p-4">
-        <p className="text-xs text-gray-400 font-mono mb-1 truncate">{product.code}</p>
+        <div className="flex items-center gap-2 mb-1">
+          <p className="text-xs text-gray-400 font-mono truncate">{product.code}</p>
+          {product.brand && (
+            <p className="text-xs text-[#835a71]/80 font-mono truncate">· {product.brand.name}</p>
+          )}
+        </div>
         <Link href={`/shop/${product.id}`}>
           <h3 className="font-normal text-gray-800 hover:text-[#333333] transition-colors leading-snug mb-2 line-clamp-2 text-sm sm:text-base tracking-wide">
             {product.name}
