@@ -29,6 +29,7 @@ export const GET_PRODUCT_BY_ID = gql`
       category
       brand { id name slug }
       image { url width height }
+      gallery { url width height }
     }
   }
 `;

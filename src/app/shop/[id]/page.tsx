@@ -1,8 +1,11 @@
 import { hygraphClient } from "@/lib/hygraph";
 import { GET_PRODUCT_BY_ID, GET_ALL_PRODUCTS } from "@/lib/queries";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCartButton } from "@/components/ui/AddToCartButton";
+import { ProductGallery } from "@/components/ui/ProductGallery";
+import { FiTag } from "react-icons/fi";
 import type { Product } from "@/types";
 import { lkr, usdLabel } from "@/lib/currency";
 
@@ -32,20 +35,13 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
     <div className="min-h-screen bg-white py-12">
       <div className="max-w-6xl mx-auto px-4">
         <div className="bg-white rounded-none border border-[#333333]/10 shadow-sm overflow-hidden grid md:grid-cols-2 gap-0">
-          {/* Image */}
-          <div className="relative h-72 md:h-auto bg-gray-50 min-h-[320px]">
-            {product.image ? (
-              <Image
-                src={product.image.url}
-                alt={product.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-8xl">🌸</div>
-            )}
+          {/* Image Gallery */}
+          <div className="w-full flex">
+            <ProductGallery 
+              thumbnail={product.image} 
+              gallery={product.gallery} 
+              productName={product.name} 
+            />
           </div>
 
           {/* Details */}
@@ -57,7 +53,18 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               ))}
             </div>
 
-            <p className="text-xs text-gray-400 font-mono mb-1">{product.code}</p>
+            <div className="flex flex-col gap-1.5 mb-2">
+              {product.brand && (
+                <Link
+                  href={`/shop?brand=${product.brand.slug || product.brand.name}`}
+                  className="inline-flex items-center gap-1.5 text-xs text-[#835a71] font-medium tracking-wide uppercase hover:underline w-fit"
+                >
+                  <FiTag className="text-[11px]" />
+                  <span>{product.brand.name}</span>
+                </Link>
+              )}
+              <p className="text-xs text-gray-400 font-mono mb-1">{product.code}</p>
+            </div>
             <h1 className="font-display text-3xl font-normal tracking-wide text-[#333333] mb-4">{product.name}</h1>
 
             {product.price != null && (

@@ -21,6 +21,7 @@ export interface Product {
   featured?: boolean;
   category?: string;
   brand?: Brand;
+  gallery?: ProductImage[];
 }
 
 export interface CartItem {
