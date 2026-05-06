@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
+import Image from "next/image";
 import { GiFlowerEmblem } from "react-icons/gi";
 import { useCartStore } from "@/store/cartStore";
 import { CartDrawer } from "@/components/cart/CartDrawer";
@@ -14,7 +15,11 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  title?: string;
+}
+
+export function Navbar({ title }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -27,9 +32,15 @@ export function Navbar() {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-[#333333]/10 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <GiFlowerEmblem className="text-[#333333] text-2xl group-hover:rotate-12 transition-transform" />
-            <span className="font-display font-bold text-xl text-[#333333]">Glowish</span>
+          <Link href="/" className="flex items-center group">
+            <Image 
+              src="/images/logo/logo.webp" 
+              alt="Glowish Logo" 
+              width={140} 
+              height={40} 
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}

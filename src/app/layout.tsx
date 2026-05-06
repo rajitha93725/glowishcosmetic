@@ -4,25 +4,48 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Providers } from "@/components/providers/Providers";
 import { Toaster } from "react-hot-toast";
+import { hygraphClient, hygraphSafeRequest } from "@/lib/hygraph";
+import { GET_WEBSITE_SETTINGS } from "@/lib/queries";
+import type { WebsiteSettings } from "@/types";
 
-export const metadata: Metadata = {
-  title: "Glowish Cosmetics | Beauty That Blooms",
-  description: "Discover premium cosmetics crafted for every skin type.",
-  openGraph: {
-    title: "Glowish Cosmetics",
-    description: "Beauty That Blooms",
-    type: "website",
-  },
-};
+export const revalidate = 60;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+async function getSettings(): Promise<WebsiteSettings | null> {
+  try {
+    const data = await hygraphSafeRequest<any>(GET_WEBSITE_SETTINGS);
+    const settings = data.websiteSettings?.[0] || data.websiteSetting || null;
+    return settings;
+  } catch (error) {
+    console.error("Layout settings fetch failed:", error);
+    return null;
+  }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const siteTitle = settings?.title || "Glowish Cosmetics";
+  
+  return {
+    title: `${siteTitle} | Beauty That Blooms`,
+    description: "Discover premium cosmetics crafted for every skin type.",
+    openGraph: {
+      title: siteTitle,
+      description: "Beauty That Blooms",
+      type: "website",
+    },
+  };
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getSettings();
+
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col bg-pink-50">
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col">
         <Providers>
-          <Navbar />
+          <Navbar title={settings?.title} />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer settings={settings} />
           <Toaster
             position="bottom-right"
             toastOptions={{

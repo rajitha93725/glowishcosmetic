@@ -3,7 +3,7 @@ import { useCartStore } from "@/store/cartStore";
 import Link from "next/link";
 import Image from "next/image";
 import { FiX, FiTrash2, FiShoppingBag, FiPlus, FiMinus } from "react-icons/fi";
-import { lkr } from "@/lib/currency";
+import { lkr, usdLabel } from "@/lib/currency";
 
 interface Props {
   open: boolean;
@@ -15,7 +15,7 @@ export function CartDrawer({ open, onClose }: Props) {
 
   if (!open) return null;
 
-  const subtotalUSD = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.quantity, 0);
+  const subtotalLKR = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.quantity, 0);
 
   return (
     <>
@@ -99,8 +99,8 @@ export function CartDrawer({ open, onClose }: Props) {
             <div className="flex justify-between items-baseline">
               <span className="text-sm text-gray-500">Subtotal</span>
               <div className="text-right">
-                <p className="font-bold text-[#333333]">{lkr(subtotalUSD)}</p>
-                <p className="text-xs text-gray-400">(${subtotalUSD.toFixed(2)} USD)</p>
+                <p className="font-bold text-[#333333]">{lkr(subtotalLKR)}</p>
+                <p className="text-xs text-gray-400">{usdLabel(subtotalLKR)} USD</p>
               </div>
             </div>
             <Link href="/checkout" onClick={onClose} className="btn-primary w-full text-center block">

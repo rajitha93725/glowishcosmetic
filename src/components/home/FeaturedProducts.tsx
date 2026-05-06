@@ -13,12 +13,12 @@ export function FeaturedProducts({ products }: Props) {
         {/* Header */}
         <div className="flex items-end justify-between mb-8 sm:mb-12">
           <div>
-            <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-semibold mb-2">Bestsellers</p>
+            <p className="text-[#333333]/60 tracking-widest uppercase text-xs font-normal mb-2">Bestsellers</p>
             <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-wide text-[#333333]">
               Our Most Loved Essentials
             </h2>
           </div>
-          <Link href="/shop" className="flex items-center gap-2 text-[#333333] font-semibold text-sm hover:gap-3 transition-all">
+          <Link href="/shop" className="flex items-center gap-2 text-[#333333] font-normal tracking-widest uppercase text-xs hover:gap-3 transition-all">
             Shop All <span>→</span>
           </Link>
         </div>

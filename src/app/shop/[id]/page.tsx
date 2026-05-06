@@ -1,4 +1,4 @@
-import { hygraphClient } from "@/lib/hygraph";
+import { hygraphClient, hygraphSafeRequest } from "@/lib/hygraph";
 import { GET_PRODUCT_BY_ID, GET_ALL_PRODUCTS } from "@/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,18 +11,20 @@ import { lkr, usdLabel } from "@/lib/currency";
 
 export async function generateStaticParams() {
   try {
-    const data = await hygraphClient.request<{ products: { id: string }[] }>(GET_ALL_PRODUCTS);
+    const data = await hygraphSafeRequest<{ products: { id: string }[] }>(GET_ALL_PRODUCTS);
     return data.products.map((p) => ({ id: p.id }));
-  } catch {
+  } catch (err) {
+    console.error("Static params fetch failed:", err);
     return [];
   }
 }
 
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    const data = await hygraphClient.request<{ product: Product }>(GET_PRODUCT_BY_ID, { id });
+    const data = await hygraphSafeRequest<{ product: Product }>(GET_PRODUCT_BY_ID, { id });
     return data.product ?? null;
-  } catch {
+  } catch (err) {
+    console.error("Product fetch failed:", err);
     return null;
   }
 }

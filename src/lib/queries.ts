@@ -51,13 +51,14 @@ export const GET_FEATURED_PRODUCTS = gql`
 
 export const GET_WEBSITE_SETTINGS = gql`
   query GetWebsiteSettings {
-    websiteSetting(where: { id: "singleton" }) {
+    websiteSettings(first: 1) {
       title
-      aboutContent { html }
       contactEmail
       contactPhone
       contactAddress
-      headerImage { url }
+      fburl
+      instaUrl
+      tiktokUrl
     }
   }
 `;
@@ -83,6 +84,39 @@ export const GET_ALL_BRANDS = gql`
       id
       name
       slug
+    }
+  }
+`;
+
+export const GET_HERO_SLIDES = gql`
+  query GetHeroSlides {
+    heroSlides(first: 5) {
+      id
+      title
+      subtitle
+      cta
+      url
+      image {
+        url
+        width
+        height
+      }
+    }
+  }
+`;
+export const GET_REVIEWS = gql`
+  query GetReviews {
+    reviews {
+      id
+      name
+      rating
+      comment
+      userImage {
+        url
+      }
+      product {
+        name
+      }
     }
   }
 `;

@@ -53,4 +53,28 @@ export interface WebsiteSettings {
   contactPhone?: string;
   contactAddress?: string;
   headerImage?: { url: string };
+  fburl?: string;
+  instaUrl?: string;
+  tiktokUrl?: string;
+}
+
+export interface HeroSlide {
+  id: string;
+  title: string;
+  subtitle: string;
+  cta: string;
+  url: string;
+  image: {
+    url: string;
+    width: number;
+    height: number;
+  };
+}
+export interface Review {
+  id: string;
+  name: string;
+  rating: number;
+  comment: string;
+  userImage?: { url: string };
+  product?: { name: string };
 }
