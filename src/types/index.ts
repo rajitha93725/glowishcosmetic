@@ -13,6 +13,7 @@ export interface Brand {
 export interface Product {
   id: string;
   name: string;
+  slug: string;
   code: string;
   description?: { html: string };
   tags: string[];

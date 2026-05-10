@@ -5,6 +5,7 @@ export const GET_ALL_PRODUCTS = gql`
     products(orderBy: createdAt_DESC) {
       id
       name
+      slug
       code
       description { html }
       tags
@@ -17,11 +18,12 @@ export const GET_ALL_PRODUCTS = gql`
   }
 `;
 
-export const GET_PRODUCT_BY_ID = gql`
-  query GetProductById($id: ID!) {
-    product(where: { id: $id }) {
+export const GET_PRODUCT_BY_SLUG = gql`
+  query GetProductBySlug($slug: String!) {
+    product(where: { slug: $slug }) {
       id
       name
+      slug
       code
       description { html }
       tags
@@ -39,6 +41,7 @@ export const GET_FEATURED_PRODUCTS = gql`
     products(where: { featured: true }, first: 6) {
       id
       name
+      slug
       code
       tags
       price
@@ -68,6 +71,7 @@ export const GET_PRODUCTS_BY_TAG = gql`
     products(where: { tags_contains_some: [$tag] }) {
       id
       name
+      slug
       code
       tags
       price

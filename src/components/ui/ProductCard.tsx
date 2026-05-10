@@ -44,7 +44,7 @@ export function ProductCard({ product, hideAddToCart }: Props) {
   return (
     <div className="card group animate-fade-in">
       {/* Image */}
-      <Link href={`/shop/${product.id}`} className="block relative h-48 sm:h-56 bg-gray-50 overflow-hidden">
+      <Link href={`/shop/${product.slug}`} className="block relative h-48 sm:h-56 bg-gray-50 overflow-hidden">
         {product.image ? (
           <Image
             src={product.image.url}
@@ -75,7 +75,7 @@ export function ProductCard({ product, hideAddToCart }: Props) {
             <p className="text-xs text-[#835a71]/80 font-mono truncate">· {product.brand.name}</p>
           )}
         </div>
-        <Link href={`/shop/${product.id}`}>
+        <Link href={`/shop/${product.slug}`}>
           <h3 className="font-normal text-gray-800 hover:text-[#333333] transition-colors leading-snug mb-2 line-clamp-2 text-sm sm:text-base tracking-wide">
             {product.name}
           </h3>
